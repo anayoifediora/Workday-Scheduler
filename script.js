@@ -2,13 +2,8 @@
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
 var saveButton = $('.btn');
-var toDoListItem = $("#hour-9");
 
-
-var action = localStorage.getItem('hour-9');
-
-
-var today = dayjs().format('dddd[,] MMMM D YYYY[.]');
+var today = dayjs().format('dddd[,] MMMM D YYYY[.] [Time:] HH[:]mm[:]ss[.]');
 $('#currentDay').text(today);
 
 //$function () ({
@@ -32,8 +27,38 @@ $('#currentDay').text(today);
     // TODO: Add code to display the current date in the header of the page.
   //});
   
-  saveButton.on('click', function(){
-    toDoListItem.text(action);
-    localStorage.setItem("hour-9", toDoListItem);
-  })
+  function renderToDoItem(){
+    var toDoListItem = localStorage.getItem("hour-9");   
+    toDoListItem = document.querySelector('textarea').value;
+ 
 
+  };
+
+  saveButton.on('click', function(){
+   var toDoListItem = document.querySelector('textarea').value
+  localStorage.setItem("hour-9", toDoListItem)
+
+  });
+    var timeBlock = document.getElementById('9');
+    var state = timeBlock.getAttribute('id');
+    var currentTime = dayjs().format('H');
+  
+  if (parseInt(state) == currentTime) {
+    console.log("present");
+    timeBlock.setAttribute('class', "row time-block present");
+
+  } else if (parseInt(state) > currentTime) {
+    console.log("future");
+    timeBlock.setAttribute('class', "row time-block future");
+
+  } else {
+    console.log("past");
+    timeBlock.setAttribute('class', "row time-block past");
+  }
+
+  function init() {
+    renderToDoItem();
+  }
+  init();
+
+  
