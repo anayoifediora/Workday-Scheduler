@@ -2,7 +2,7 @@
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
 
-var saveButton = document.querySelectorAll('button');
+var saveButton = $('.time-block');
 
 var today = dayjs().format('dddd[,] MMMM D YYYY[.] [Time:] HH[:]mm[:]ss[.]');
 $('#currentDay').text(today);
@@ -28,43 +28,38 @@ $('#currentDay').text(today);
     // TODO: Add code to display the current date in the header of the page.
   //});
   
-  function renderToDoItem(){
-    var toDoListItem = localStorage.getItem("task");   
-    toDoListItem = document.querySelector('textarea').value;
+  // function renderToDoItem(){
+  //   var toDoListItem = localStorage.getItem("task");   
+  //   toDoListItem = document.querySelector('textarea').value;
  
 
-  };
+  // };
 
 
-  // saveButton.on('click', function() {
-  //  var toDoListItem = document.querySelector('textarea').value
-  // localStorage.setItem("task", toDoListItem)
+  saveButton.on('click', function() {
+   var toDoListItem = document.querySelector('textarea').value
+  localStorage.setItem("task", toDoListItem)
 
-  // });
+  });
 
-  for (var i = 0; i < saveButton.length; i++) {
-
-    //var timeBlock = document.getElementById('hour-9');
-    var timeBlock = saveButton[i].closest('#hour-9')
-    var state = timeBlock.getAttribute('id');
- }
-  console.log(state);
-  //   var currentTime = dayjs().format('H');
-  //   var hourTime = parseInt(state);
-  //   console.log(hourTime);
+  $(".time-block").each(function(){
+    //var currentTime = dayjs().format('H');
+    var currentTime = 12;
+    var hourTime = parseInt($(this).attr("id").split("-")[1]);
+    console.log(hourTime);
   
-  // if (hourTime <= currentTime) {
-  //   console.log("present");
-  //   timeBlock.setAttribute('class', "row time-block present");
+  if (hourTime < currentTime) {
+    $(this).addClass("past");
 
-  // } else if (hourTime > currentTime) {
-  //   console.log("future");
-  //   timeBlock.setAttribute('class', "row time-block future");
-
-  // } else {
-  //   console.log("past");
-  //   timeBlock.setAttribute('class', "row time-block past");
-  // }
+  } else if (hourTime === currentTime) {
+    $(this).addClass("present");
+    $(this).removeClass("past");
+  } else {
+    $(this).removeClass("present");
+    $(this).removeClass("past");
+    $(this).addClass("future");
+  }
+  })
 
   // function init() {
   //   renderToDoItem();
