@@ -1,7 +1,8 @@
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
-var saveButton = $('.btn');
+
+var saveButton = document.querySelectorAll('button');
 
 var today = dayjs().format('dddd[,] MMMM D YYYY[.] [Time:] HH[:]mm[:]ss[.]');
 $('#currentDay').text(today);
@@ -28,37 +29,46 @@ $('#currentDay').text(today);
   //});
   
   function renderToDoItem(){
-    var toDoListItem = localStorage.getItem("hour-9");   
+    var toDoListItem = localStorage.getItem("task");   
     toDoListItem = document.querySelector('textarea').value;
  
 
   };
 
-  saveButton.on('click', function(){
-   var toDoListItem = document.querySelector('textarea').value
-  localStorage.setItem("hour-9", toDoListItem)
 
-  });
-    var timeBlock = document.getElementById('9');
+  // saveButton.on('click', function() {
+  //  var toDoListItem = document.querySelector('textarea').value
+  // localStorage.setItem("task", toDoListItem)
+
+  // });
+
+  for (var i = 0; i < saveButton.length; i++) {
+
+    //var timeBlock = document.getElementById('hour-9');
+    var timeBlock = saveButton[i].closest('#hour-9')
     var state = timeBlock.getAttribute('id');
-    var currentTime = dayjs().format('H');
+ }
+  console.log(state);
+  //   var currentTime = dayjs().format('H');
+  //   var hourTime = parseInt(state);
+  //   console.log(hourTime);
   
-  if (parseInt(state) == currentTime) {
-    console.log("present");
-    timeBlock.setAttribute('class', "row time-block present");
+  // if (hourTime <= currentTime) {
+  //   console.log("present");
+  //   timeBlock.setAttribute('class', "row time-block present");
 
-  } else if (parseInt(state) > currentTime) {
-    console.log("future");
-    timeBlock.setAttribute('class', "row time-block future");
+  // } else if (hourTime > currentTime) {
+  //   console.log("future");
+  //   timeBlock.setAttribute('class', "row time-block future");
 
-  } else {
-    console.log("past");
-    timeBlock.setAttribute('class', "row time-block past");
-  }
+  // } else {
+  //   console.log("past");
+  //   timeBlock.setAttribute('class', "row time-block past");
+  // }
 
-  function init() {
-    renderToDoItem();
-  }
-  init();
+  // function init() {
+  //   renderToDoItem();
+  // }
+  // init();
 
   
