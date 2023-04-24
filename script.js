@@ -1,53 +1,35 @@
-// Wrap all code that interacts with the DOM in a call to jQuery to ensure that
-// the code isn't run until the browser has finished rendering all the elements
-// in the html.
+//Queried the DOM to select elements
 
 var saveButton = $('.btn');
 var timeBlockText = $('textarea');
-console.log(timeBlockText)
+
+//Displays the current date and time at the top of the scheduler
 
 var today = dayjs().format('dddd[,] MMMM D YYYY[.] [Time:] HH[:]mm[:]ss[.]');
 $('#currentDay').text(today);
 
-//$function () ({
-    // TODO: Add a listener for click events on the save button. This code should
-    // use the id in the containing time-block as a key to save the user input in
-    // local storage. HINT: What does `this` reference in the click listener
-    // function? How can DOM traversal be used to get the "hour-x" id of the
-    // time-block containing the button that was clicked? How might the id be
-    // useful when saving the description in local storage?
-    //
-    // TODO: Add code to apply the past, present, or future class to each time
-    // block by comparing the id to the current hour. HINTS: How can the id
-    // attribute of each time-block be used to conditionally add or remove the
-    // past, present, and future classes? How can Day.js be used to get the
-    // current hour in 24-hour time?
-    //
-    // TODO: Add code to get any user input that was saved in localStorage and set
-    // the values of the corresponding textarea elements. HINT: How can the id
-    // attribute of each time-block be used to do this?
-    //
-    // TODO: Add code to display the current date in the header of the page.
-  //});
-  
-  function renderToDoItem(){
-    toDoListItem = localStorage.getItem("task");   
-    toDoListItem = document.querySelector('textarea').value;
- 
-
-  };
-
+//Event listener function on the save button.
 
   saveButton.click( function() {
-  var toDoListItem = timeBlockText.text("").value;
-  localStorage.setItem("task", toDoListItem);
+
+   var timeBlockId = $(this).closest('.time-block').attr('id');
+   console.log(timeBlockId);
+  var toDoListItem = $(this).closest('.time-block').find('textarea').val();
+  localStorage.setItem(timeBlockId, toDoListItem);
 
   });
 
+  // Code that applies the "past", "present" and "future" classes to the time-block depending 
+  // on the time of the day.
+
   $(".time-block").each(function(){
     var currentTime = dayjs().format('H');
-    //var currentTime = 12;
+  
     var hourTime = parseInt($(this).attr("id").split("-")[1]);
+
+    var toDoListItem = localStorage.getItem($(this).attr('id')); 
+    $(this).find('textarea').val(toDoListItem)  
+
   
   if (hourTime < currentTime) {
     $(this).addClass("past");
@@ -62,9 +44,5 @@ $('#currentDay').text(today);
   }
   })
 
-  function init() {
-    renderToDoItem();
-  }
-  init();
 
   
