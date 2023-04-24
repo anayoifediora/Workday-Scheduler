@@ -2,7 +2,9 @@
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
 
-var saveButton = $('.time-block');
+var saveButton = $('.btn');
+var timeBlockText = $('textarea');
+console.log(timeBlockText)
 
 var today = dayjs().format('dddd[,] MMMM D YYYY[.] [Time:] HH[:]mm[:]ss[.]');
 $('#currentDay').text(today);
@@ -28,25 +30,24 @@ $('#currentDay').text(today);
     // TODO: Add code to display the current date in the header of the page.
   //});
   
-  // function renderToDoItem(){
-  //   var toDoListItem = localStorage.getItem("task");   
-  //   toDoListItem = document.querySelector('textarea').value;
+  function renderToDoItem(){
+    toDoListItem = localStorage.getItem("task");   
+    toDoListItem = document.querySelector('textarea').value;
  
 
-  // };
+  };
 
 
-  saveButton.on('click', function() {
-   var toDoListItem = document.querySelector('textarea').value
-  localStorage.setItem("task", toDoListItem)
+  saveButton.click( function() {
+  var toDoListItem = timeBlockText.text("").value;
+  localStorage.setItem("task", toDoListItem);
 
   });
 
   $(".time-block").each(function(){
-    //var currentTime = dayjs().format('H');
-    var currentTime = 12;
+    var currentTime = dayjs().format('H');
+    //var currentTime = 12;
     var hourTime = parseInt($(this).attr("id").split("-")[1]);
-    console.log(hourTime);
   
   if (hourTime < currentTime) {
     $(this).addClass("past");
@@ -61,9 +62,9 @@ $('#currentDay').text(today);
   }
   })
 
-  // function init() {
-  //   renderToDoItem();
-  // }
-  // init();
+  function init() {
+    renderToDoItem();
+  }
+  init();
 
   
